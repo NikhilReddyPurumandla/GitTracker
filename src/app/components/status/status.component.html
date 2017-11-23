@@ -1,0 +1,125 @@
+
+<div>
+  
+  <input type="text" [(ngModel)]="username" name="username"  placeholder="enter name">
+  
+  <input type="text" [(ngModel)]="repo" name="repo"  placeholder="enter repo">
+  
+    <input type='date'  [(ngModel)]="date" name="date" placeholder="date">
+  
+    <button (click)=getDetails()>search</button> 
+  
+  </div>
+  
+  <h1>repo details</h1>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+   <table id='examples' class='table table-hover table-bordered '>
+        
+        <thead><tr class='active'>
+              
+              <th>User Name</th>
+              <th>Role</th>
+              <th>Contributions</th>
+            
+            
+              
+              </thead>
+          <tbody>
+  
+              <tr  *ngFor = "let use of user">
+          <td>{{use.login}}</td>
+  <td>{{use.type}}</td>
+  <td>{{use.contributions}}</td>
+          
+      </tr> 
+     
+           
+           </tbody>
+           </table>
+         <table id='commits' class='table table-hover table-bordered '>
+        
+        <thead><tr class='active'>
+              
+              <th>User Name</th>
+              <th>Email</th>
+              <th>Date</th>
+            <th>Message</th>
+            
+              
+              </thead>
+          <tbody>
+  
+              <tr  *ngFor = "let date of day">
+          <td>{{date.commit.committer.name}}</td>
+          <td>{{date.commit.committer.email}}</td>
+          <td>{{date.commit.committer.date}}</td>
+          <td>{{date.commit.message}}</td>
+          
+      </tr> 
+     
+           
+           </tbody>
+           </table>
+           <br><br>
+             
+             
+             
+              <table id='branches' class='table table-hover table-bordered '>
+        
+        <thead><tr class='active'>
+              
+              <th>Branch Name</th>
+              <th>Commit SHA</th>
+              <th>Commit URL</th>
+            
+            
+              
+              </thead>
+          <tbody>
+  
+              <tr  *ngFor = "let part of branch">
+          <td>{{part.name}}</td>
+          <td>{{part.commit.sha}}</td>
+          <td>{{part.commit.url}}</td>
+     
+          
+      </tr> 
+     
+           
+           </tbody>
+           </table>
+            <table id='commitDate' class='table table-hover table-bordered '>
+        
+        <thead><tr class='active'>
+              
+              <th>User Name</th>
+              <th>Email</th>
+              <th>Date</th>
+            <th>Message</th>
+            
+              
+              </thead>
+          <tbody>
+  
+              <tr  *ngFor = "let msg of commit">
+          <td>{{msg.commit.committer.name}}</td>
+          <td>{{msg.commit.committer.email}}</td>
+          <td>{{msg.commit.committer.date}}</td>
+          <td>{{msg.commit.message}}</td>
+          
+      </tr> 
+     
+           
+           </tbody>
+           </table>
+           
+       <div>
+   
+   
+  </div> 
+  
