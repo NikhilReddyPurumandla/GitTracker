@@ -4,8 +4,8 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class GithubService{
-    private username = 'nikhilreddypurumandla';
-    private repo='nikhil';
+    private username = '';
+    private repo='';
     private date='';
     private client_id = '41b7681364679e30d325';
     private client_secret='c32185af65cee9f03f1622e973f9840496e0c80c';
@@ -50,7 +50,11 @@ export class GithubService{
 
     getDate() {
         
-            return this._http.get('https://api.github.com/repos/' + this.username + '/' + this.repo + '/commits?since=' + this.date+'?client_id='+this.client_id+'&client_secret='+this.client_secret)
+            return this._http.get('https://api.github.com/repos/' + this.username + '/' + this.repo + '/commits?since=' + this.date+'&client_secret='+this.client_secret)
             .map(res => res.json())
+    }
+    getGraph(){
+        return this._http.get('https://api.github.com/repos/' + this.username + '/' + this.repo + '/contributors?client_id='+this.client_id+'&client_secret='+this.client_secret)
+        .map(res => res.json())
     }
 }

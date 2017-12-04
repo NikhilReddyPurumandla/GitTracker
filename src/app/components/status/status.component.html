@@ -1,4 +1,4 @@
-
+<script src="node_modules/chart.js/src/chart.js"></script>
 <div>
   
   <input type="text" [(ngModel)]="username" name="username"  placeholder="enter name">
@@ -118,8 +118,24 @@
            </tbody>
            </table>
            
-       <div>
-   
-   
-  </div> 
+           <div>
+
+              <div style="display: block" *ngFor="let x of graph">
+                  
+                     <canvas 
+                            
+                            baseChart
+                            [datasets]="barChartData"
+                            [labels]="barChartLabels"
+                            [options]="barChartOptions"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></canvas> 
+                              
+                  </div> 
+                 
+                </div> 
+                
+            
   
