@@ -1,12 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import {GithubService} from '../../services/github.service';
 import { ChartsModule } from 'ng2-charts';
+import {  Input, Output, OnChanges, EventEmitter } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 @Component({
   moduleId:module.id,
   selector: 'status',
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.css'],
-  providers:[GithubService]
+  providers:[GithubService],
+  animations: [
+    trigger('dialog', [
+      transition('void => *', [
+        style({ transform: 'scale3d(.3, .3, .3)' }),
+        animate(100)
+      ]),
+      transition('* => void', [
+        animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
+      ])
+    ])
+  ]
 })
 export class StatusComponent implements OnInit {
 
@@ -22,7 +35,16 @@ export class StatusComponent implements OnInit {
   barChartType:any;
   barChartLegend:boolean;
   barChartData:any;
-  
+  @Input() closable = true;
+  @Input() visible: boolean;
+  @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+ 
+
+  close() {
+    this.visible = false;
+    this.visibleChange.emit(this.visible);
+  }
   constructor(private _githubService:GithubService){
       console.log('Github Component Init...');   
   }

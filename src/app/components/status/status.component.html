@@ -11,131 +11,151 @@
   
   </div>
   
-  <h1>repo details</h1>
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  
-   <table id='examples' class='table table-hover table-bordered '>
+    <div *ngIf="user">
         
-        <thead><tr class='active'>
-              
-              <th>User Name</th>
-              <th>Role</th>
-              <th>Contributions</th>
-            
-            
-              
-              </thead>
-          <tbody>
-  
-              <tr  *ngFor = "let use of user">
-          <td>{{use.login}}</td>
-  <td>{{use.type}}</td>
-  <td>{{use.contributions}}</td>
-          
-      </tr> 
-     
-           
-           </tbody>
-           </table>
-         <table id='commits' class='table table-hover table-bordered '>
         
-        <thead><tr class='active'>
-              
-              <th>User Name</th>
-              <th>Email</th>
-              <th>Date</th>
-            <th>Message</th>
-            
-              
-              </thead>
-          <tbody>
-  
-              <tr  *ngFor = "let date of day">
-          <td>{{date.commit.committer.name}}</td>
-          <td>{{date.commit.committer.email}}</td>
-          <td>{{date.commit.committer.date}}</td>
-          <td>{{date.commit.message}}</td>
-          
-      </tr> 
-     
-           
-           </tbody>
-           </table>
-           <br><br>
-             
-             
-             
-              <table id='branches' class='table table-hover table-bordered '>
-        
-        <thead><tr class='active'>
-              
-              <th>Branch Name</th>
-              <th>Commit SHA</th>
-              <th>Commit URL</th>
-            
-            
-              
-              </thead>
-          <tbody>
-  
-              <tr  *ngFor = "let part of branch">
-          <td>{{part.name}}</td>
-          <td>{{part.commit.sha}}</td>
-          <td>{{part.commit.url}}</td>
-     
-          
-      </tr> 
-     
-           
-           </tbody>
-           </table>
-            <table id='commitDate' class='table table-hover table-bordered '>
-        
-        <thead><tr class='active'>
-              
-              <th>User Name</th>
-              <th>Email</th>
-              <th>Date</th>
-            <th>Message</th>
-            
-              
-              </thead>
-          <tbody>
-  
-              <tr  *ngFor = "let msg of commit">
-          <td>{{msg.commit.committer.name}}</td>
-          <td>{{msg.commit.committer.email}}</td>
-          <td>{{msg.commit.committer.date}}</td>
-          <td>{{msg.commit.message}}</td>
-          
-      </tr> 
-     
-           
-           </tbody>
-           </table>
-           
-           <div>
-
-              <div style="display: block" *ngFor="let x of graph">
-                  
-                     <canvas 
-                            
-                            baseChart
-                            [datasets]="barChartData"
-                            [labels]="barChartLabels"
-                            [options]="barChartOptions"
-                            [legend]="barChartLegend"
-                            [chartType]="barChartType"
-                            (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)"></canvas> 
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Contributors</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div *ngFor="let use of user">
+                            <div class="row">
+                                <div class="col-md-9" >
+                                    <h4>{{use.login}}</h4>    
+                                    <p>Type :{{use.type}}</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <span class="label label-warning">{{use.contributions}} Contributions</span>
+                                  
+                                </div>    
+                            </div> 
+                            <hr />  
+                        </div>    
+                    </div>    
+                </div>
+            </div>
+       </div>
+       <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Branches</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div *ngFor="let part of branch">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h4><b>Branch Name:</b>{{part.name}}</h4>    
                               
-                  </div> 
-                 
-                </div> 
+                                <p><b>URL:</b>{{part.commit.url}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="label label-success"><b>SHA</b>{{part.commit.sha}}</span>
+                               
+                            </div>    
+                        </div> 
+                        <hr />  
+                    </div>    
+                </div>    
+            </div>
+        </div>
+   </div>
+   
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Commit History</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div *ngFor="let msg of commit">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h4><b>Committer:</b>{{msg.commit.committer.name}}</h4>    
+                              
+                                <p><b>message:</b>{{msg.commit.message}}</p>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="label label-primary">{{msg.commit.committer.date}}</span>
+                               
+                            </div>    
+                        </div> 
+                        <hr />  
+                    </div>    
+                </div>    
+            </div>
+        </div>
+   </div>
+
+   <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Date Wise Commit History</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div *ngFor="let date of day">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h4><b>Committer:</b>{{date.commit.committer.name}}</h4>    
+                          
+                            <p><b>message:</b>{{date.commit.message}}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="label label-primary">{{date.commit.committer.date}}</span>
+                           
+                        </div>    
+                    </div> 
+                    <hr />  
+                </div>    
+            </div>    
+        </div>
+    </div>
+</div>
+        
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Commit Graph</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+         
+              
+                        <div class="col-md-12">
+                            <div style="display: block" *ngFor="let x of graph">
+                                
+                                   <canvas 
+                                          
+                                          baseChart
+                                          [datasets]="barChartData"
+                                          [labels]="barChartLabels"
+                                          [options]="barChartOptions"
+                                          [legend]="barChartLegend"
+                                          [chartType]="barChartType"
+                                          (chartHover)="chartHovered($event)"
+                                          (chartClick)="chartClicked($event)"></canvas> 
+                                            
+                                </div> 
+                               
+                          
+                    </div> 
+                    <hr />  
+                </div>    
+            </div>    
+        </div>
+        
+             
+             
+        
+      
                 
-            
+            </div>          
   
