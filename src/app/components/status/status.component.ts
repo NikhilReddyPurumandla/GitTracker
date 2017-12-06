@@ -3,6 +3,7 @@ import {GithubService} from '../../services/github.service';
 import { ChartsModule } from 'ng2-charts';
 import {  Input, Output, OnChanges, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+
 @Component({
   moduleId:module.id,
   selector: 'status',
@@ -22,12 +23,15 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ]
 })
 export class StatusComponent implements OnInit {
+  barChartOptions: any;
 
   user:any;
   branch:any;
   commit:any;
   day:any;
   graph:any;
+  key:any;
+  value:any;
   repo:string;
   date:string;
   username:string;
@@ -38,7 +42,8 @@ export class StatusComponent implements OnInit {
   @Input() closable = true;
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+   arr:any=[];
+   arr1:any=[];
  
 
   close() {
@@ -59,7 +64,6 @@ export class StatusComponent implements OnInit {
     this._githubService.updateRepo(this.repo);
     this._githubService.updateDate(this.date);
     this._githubService.getContributors().subscribe(user => {
-      console.log(user);
       this.user = user;
   });
   this._githubService.getDate().subscribe(day => {
@@ -77,22 +81,48 @@ export class StatusComponent implements OnInit {
 
 this._githubService.getGraph().subscribe(graph => {
   this.graph = graph;
-  
-  for (let num of graph){
+   this.barChartOptions = {
+    scaleShowVerticalLines: false,
+    responsive: true
+    };
     
-     this.barChartLabels = [num.login];
-    console.log(this.barChartLabels);
+  for (let num of graph){
+   // for ( this.key in this.arr) {
+    //}
+    this.arr.push(num.login);
+    let x: any= this.arr;
+    this.barChartLabels = x;
+
+   
    this.barChartType = 'bar';
    this.barChartLegend= true;
-  
+   //for ( this.value in this.arr1) {
+    
+   //}
+   //let abc=this.arr1[this.value];
+   this.arr1.push(num.contributions),
    this.barChartData = [
-     {data: [num.contributions], label: 'Contributions'},
+    
+     {data: this.arr1, label: 'Contributions'},
     
    ];
-   console.log(this.barChartData);
+   
   
-       }
+   
+       
+      }
+       
+      console.log( this.barChartLabels);
+      console.log(this.barChartData);
 });
 
+
     }
+    public chartClicked(e:any):void {
+      console.log(e);
+      }
+       
+      public chartHovered(e:any):void {
+      console.log(e);
+      }
 }
