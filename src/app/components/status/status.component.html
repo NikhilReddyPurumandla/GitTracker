@@ -1,25 +1,76 @@
 <script src="node_modules/chart.js/src/chart.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+<div id="id05" class="modal">
+        
+
+         
+           <form class="modal-content animate" method="post">
+             <div class="container">
+             <div class="col-xs-6 col-md-6">   
+                     <div>
+                             
+                             <input type="text" [(ngModel)]="username" name="username"  placeholder="enter name">
+                             
+                             <input type="text" [(ngModel)]="repo" name="repo"  placeholder="enter repo">
+                             
+                         
+                             
+                            
+             
+               <div class="clearfix">
+                 <button type="button" class="btn btn-danger" onclick="document.getElementById('id05').style.display='none'" class="cancelbtn">Cancel</button>
+         
+                 <button (click)=getDetails() onclick="document.getElementById('id05').style.display='none'" class="btn btn-success">search</button> 
+                 
+                 </div>
+          </div></div> </div></form>
+             </div>
+             <button class="btn btn-primary"  onclick="document.getElementById('id05').style.display='block'" style="float: right;width:auto;">Track your Project</button>                        
+
 <div>
   
   <input type="text" [(ngModel)]="username" name="username"  placeholder="enter name">
   
   <input type="text" [(ngModel)]="repo" name="repo"  placeholder="enter repo">
   
-    <input type='date'  [(ngModel)]="date" name="date" placeholder="date">
+<!--<input type='date'  [(ngModel)]="date" name="date" placeholder="date">-->
   
     <button (click)=getDetails()>search</button> 
   
   </div>
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+   <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#a" role="tab" aria-controls="Branches" aria-selected="true">Branches</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#contribution" role="tab" aria-controls="Contributors" aria-selected="false">Contributors</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#commit" role="tab" aria-controls="CommitHistory" aria-selected="false">Commit History</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#graph" role="tab" aria-controls="CommitGraph" aria-selected="false">Commit Graph</a>
+          </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="branch" role="tabpanel" aria-labelledby="home-tab">hii</div>
+        <div class="tab-pane fade" id="contribution" role="tabpanel" aria-labelledby="profile-tab">hello</div>
+        <div class="tab-pane fade" id="commit" role="tabpanel" aria-labelledby="contact-tab">hru</div>
+      </div>-->
+   
+   
     <div *ngIf="user">
-        
-        
-        <div class="panel panel-default">
+                
+
+     <!--   <div class="panel panel-default" id="a">
             <div class="panel-heading">
                 <h3 class="panel-title">Contributors</h3>
             </div>
@@ -43,7 +94,7 @@
                 </div>
             </div>
        </div>
-       <div class="panel panel-default">
+       <div class="panel panel-default" id="b">
         <div class="panel-heading">
             <h3 class="panel-title">Branches</h3>
         </div>
@@ -69,7 +120,7 @@
         </div>
    </div>
    
-      <div class="panel panel-default">
+      <div class="panel panel-default" id="c">
         <div class="panel-heading">
             <h3 class="panel-title">Commit History</h3>
         </div>
@@ -95,7 +146,7 @@
         </div>
    </div>
 
-   <div class="panel panel-default">
+   <div class="panel panel-default" id="d">
     <div class="panel-heading">
         <h3 class="panel-title">Date Wise Commit History</h3>
     </div>
@@ -121,7 +172,7 @@
     </div>
 </div>
         
-<div class="panel panel-default">
+<div class="panel panel-default" id="e">
     <div class="panel-heading">
         <h3 class="panel-title">Commit Graph</h3>
     </div>
@@ -152,10 +203,152 @@
             </div>    
         </div>
         
-             
-             
-        
-      
-                
-            </div>          
   
+            </div> -->
+
+            <ul class="tabs" >
+                    
+                    <li class="tab">
+                        <input type="radio" name="tabs" checked="checked" id="tab1" />
+                        <label for="tab1">Contributors</label>
+                        <div id="tab-content1" class="content">
+                        
+                          <div class="panel panel-default" >
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Contributors</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div *ngFor="let use of user">
+                                                <div class="row">
+                                                    <div class="col-md-9" >
+                                                        <h4>{{use.login}}</h4>    
+                                                        <p>Type :{{use.type}}</p>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <span class="label label-warning">{{use.contributions}} Contributions</span>
+                                                      
+                                                    </div>    
+                                                </div> 
+                                                <hr />  
+                                            </div>    
+                                        </div>    
+                                    </div>
+                                </div>
+                           </div>
+                        </div>
+                    </li>
+                    
+                    <li class="tab">
+                      <input type="radio" name="tabs" id="tab2" />
+                      <label for="tab2">Branches</label>   
+                      <div id="tab-content2" class="content">
+                            <div class="panel panel-default" >
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Branches</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div *ngFor="let part of branch">
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <h4><b>Branch Name:</b>{{part.name}}</h4>    
+                                                          <br>
+                                                            <p><b>URL:</b>{{part.commit.url}}</p>
+                                                            <br><br>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <span class="label label-success"><b>SHA</b>{{part.commit.sha}}</span>
+                                                           
+                                                        </div>    
+                                                    </div> 
+                                                    <hr />  
+                                                </div>    
+                                            </div>    
+                                        </div>
+                                    </div>
+                               </div>
+                       </div>
+                    </li>
+                
+                     <li class="tab">
+                      <input type="radio" name="tabs" id="tab3" />
+                      <label for="tab3">Commit History</label>   
+                      <div id="tab-content3" class="content">
+                            <div class="panel panel-default" >
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Commit History</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div *ngFor="let msg of commit">
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <h4><b>Committer:</b>{{msg.commit.committer.name}}</h4>    
+                                                          <br>
+                                                            <p><b>message:</b>{{msg.commit.message}}</p>
+                                                            <br><br>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span class="label label-primary">{{msg.commit.committer.date}}</span>
+                                                           
+                                                        </div>    
+                                                    </div> 
+                                                    <hr />  
+                                                </div>    
+                                            </div>    
+                                        </div>
+                                    </div>
+                               </div>
+                            
+                      </div>
+                    </li>
+                   
+                          
+                          
+                    <li class="tab">
+                      <input type="radio" name="tabs" id="tab4" />
+                      <label for="tab4">Graph</label>   
+                      <div id="tab-content4" class="content">
+                            <div class="panel panel-default" id="e">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Commit Graph</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                         
+                                              
+                                                        <div class="col-md-12">
+                                                            <div style="display: block" *ngIf="graph">
+                                                                
+                                                                   <canvas 
+                                                                          
+                                                                          baseChart
+                                                                          [datasets]="barChartData"
+                                                                          [labels]="barChartLabels"
+                                                                          [options]="barChartOptions"
+                                                                          [legend]="barChartLegend"
+                                                                          [chartType]="barChartType"
+                                                                          (chartHover)="chartHovered($event)"
+                                                                          (chartClick)="chartClicked($event)"></canvas> 
+                                                                            
+                                                                </div> 
+                                                               
+                                                          
+                                                    </div> 
+                                                    <hr />  
+                                                </div>    
+                                            </div>    
+                                        </div>
+                                        
+                      </div>
+                    </li>
+                    
+                  </ul>
+                  
+</div>
+
+              
