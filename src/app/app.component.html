@@ -1,32 +1,34 @@
 <nav class="navbar navbar-default">
-
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Git-Tracker</a>
+  
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Git-Tracker</a>
+        
+      </div>
+    
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+         
+        </ul>
+      </div><!--/.nav-collapse -->
+    
+  </nav>
+  <div class="row"> 
+    <div class="col-md-3">
+    
+    <div class="vertical-menu" >
+    <a routerLink="/status" routerLinkActive="active" id="bttn">Project Status Tracker</a><br>
+    <a routerLink="/github" routerLinkActive="active" id="bttn1">Explore your Buddies</a><br>
+    <a routerLink="/organisation" routerLinkActive="active" id="bttn2">Orginisation Tracker</a><br>
     </div>
-  
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-       
-      </ul>
-    </div><!--/.nav-collapse -->
-  
-</nav>
-<div class="row"> 
-  <div class="col-md-3">
-  
-  <div class="vertical-menu" >
-  <a routerLink="/status" routerLinkActive="active" id="bttn">Status Tracker</a><br>
-  <a routerLink="/github" routerLinkActive="active" id="bttn1">Git Explore</a>
-  </div>
-  </div>
-  <div class="col-md-9 display">
-  <router-outlet></router-outlet>
-  </div>
-  </div>
- 
+    </div>
+    <div class="col-md-9 display">
+    <router-outlet></router-outlet>
+    </div>
+    </div>
+   
