@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class GithubService{
-    
+    private orgname='';
     private username = '';
     private repo='';
     private date='';
@@ -12,7 +12,7 @@ export class GithubService{
     private client_secret='c32185af65cee9f03f1622e973f9840496e0c80c';
     
     constructor(private _http:Http){
-        console.log('Github Service Init...');
+     
     }
     
     getUser(){
@@ -29,14 +29,18 @@ export class GithubService{
         this.username = username;
     }
     updateRepo(repo:string){
-        this.repo = repo;
+       this.repo = repo;
     }
     updateDate(date:string){
         this.date = date;
     }
+
+    updateOrgname(orgname:string){
+        this.orgname = orgname;
+    }
     getContributors(){
-         return this._http.get('https://api.github.com/repos/' + this.username + '/' + this.repo + '/contributors?client_id='+this.client_id+'&client_secret='+this.client_secret)
-         .map(res => res.json());
+         return this._http.get( 'https://api.github.com/repos/'+this.username +'/'+this.repo+'/contributors?client_id='+this.client_id+'&client_secret='+this.client_secret)
+         .map(res => res.json())
     }
     getCommits() {
         
@@ -58,4 +62,10 @@ export class GithubService{
         return this._http.get('https://api.github.com/repos/' + this.username + '/' + this.repo + '/contributors?client_id='+this.client_id+'&client_secret='+this.client_secret)
         .map(res => res.json())
     }
+    getOrgRepos(){
+        return this._http.get('https://api.github.com/orgs/' + this.orgname + '/repos?client_id='+this.client_id+'&client_secret='+this.client_secret)
+        .map(res => res.json()) 
+       
+    }
+    
 }
