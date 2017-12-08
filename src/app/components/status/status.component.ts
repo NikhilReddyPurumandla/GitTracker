@@ -4,6 +4,7 @@ import { ChartsModule } from 'ng2-charts';
 import {  Input, Output, OnChanges, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
+
 @Component({
   moduleId:module.id,
   selector: 'status',
@@ -33,12 +34,17 @@ export class StatusComponent implements OnInit {
   key:any;
   value:any;
   repo:string;
-  date:string;
+  
   username:string;
   barChartLabels:any;
   barChartType:any;
   barChartLegend:boolean;
   barChartData:any;
+  link:any;
+  edate:any;
+  sdate:any;
+  date:any;
+  lang:any;
   @Input() closable = true;
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -51,21 +57,37 @@ export class StatusComponent implements OnInit {
     this.visibleChange.emit(this.visible);
   }
   constructor(private _githubService:GithubService){
-      console.log('Github Component Init...');   
+        
   }
 
   ngOnInit() {
     
-  }
+}
+
+getDate(){
   
- 
+  this._githubService.updateSdate(this.sdate);
+  console.log("hello",this.sdate);
+  this._githubService.updateEdate(this.edate);
+  console.log("date",this.edate);
+  this._githubService.getDateCommits().subscribe(date => {
+    this.date=date;
+    console.log("api values",this.date);
+    
+  })
+}
+   
   getDetails(){
-    this._githubService.updateUsername(this.username);
-    this._githubService.updateRepo(this.repo);
-    this._githubService.updateDate(this.date);
+   
+   this.arr.length=0;
+   this.arr1.length=0;
+   
+    this._githubService.updateUsername(this.username.split('/')[3]);
+    this._githubService.updateRepo(this.username.split('/')[4]);
     this._githubService.getContributors().subscribe(user => {
       this.user = user;
   });
+
   this._githubService.getDate().subscribe(day => {
     this.day = day;
    
@@ -78,6 +100,10 @@ export class StatusComponent implements OnInit {
     this.branch = branch;
    
 });
+this._githubService.getLang().subscribe(lang => {
+  this.lang = lang;
+ console.log("langs are",lang);
+});
 
 this._githubService.getGraph().subscribe(graph => {
   this.graph = graph;
@@ -87,8 +113,7 @@ this._githubService.getGraph().subscribe(graph => {
     };
     
   for (let num of graph){
-   // for ( this.key in this.arr) {
-    //}
+  
     this.arr.push(num.login);
     let x: any= this.arr;
     this.barChartLabels = x;
@@ -96,10 +121,7 @@ this._githubService.getGraph().subscribe(graph => {
    
    this.barChartType = 'bar';
    this.barChartLegend= true;
-   //for ( this.value in this.arr1) {
-    
-   //}
-   //let abc=this.arr1[this.value];
+
    this.arr1.push(num.contributions),
    this.barChartData = [
     
@@ -112,8 +134,7 @@ this._githubService.getGraph().subscribe(graph => {
        
       }
        
-      console.log( this.barChartLabels);
-      console.log(this.barChartData);
+    
 });
 
 
