@@ -34,7 +34,13 @@ export class StatusComponent implements OnInit {
   key:any;
   value:any;
   repo:string;
-  
+  b:any;
+  d:any;
+  e:boolean;
+  f:any;
+  g:any;
+
+
   username:string;
   barChartLabels:any;
   barChartType:any;
@@ -44,12 +50,19 @@ export class StatusComponent implements OnInit {
   edate:any;
   sdate:any;
   date:any;
-  lang:any;
+  lang:any=[];
   @Input() closable = true;
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
    arr:any=[];
    arr1:any=[];
+   c:any=[];
+   p:any=[];
+   year:any=[];
+   log:any=[];
+   con:any;
+   a:any=[];
+   a1:any=[];
  
 
   close() {
@@ -104,7 +117,23 @@ this._githubService.getLang().subscribe(lang => {
   this.lang = lang;
  console.log("langs are",lang);
 });
-
+this._githubService.getC().subscribe(c=>{
+this.c=c;
+console.log("hi",c);
+})
+this._githubService.getP().subscribe(p=>{
+  this.p=p;
+  console.log("hello",p);
+  })
+  this._githubService.getYear().subscribe(year=>{
+    this.year=year;
+    console.log("year",year);
+    })
+  
+    this._githubService.getLog().subscribe(log=>{
+      this.log=log;
+      console.log("logs",log);
+      })
 this._githubService.getGraph().subscribe(graph => {
   this.graph = graph;
    this.barChartOptions = {
@@ -133,7 +162,39 @@ this._githubService.getGraph().subscribe(graph => {
    
        
       }
-       
+      this._githubService.getCon().subscribe(con => {
+        this.con = con;
+         this.g = {
+          scaleShowVerticalLines: false,
+          responsive: true
+          };
+          
+        for (let k of con){
+          
+        
+        
+          this.a.push(k.week);
+          let y: any= this.a;
+          this.b = y;
+      
+         
+         this.d = 'bar';
+         this.e= true;
+      
+         this.a1.push(k.total),
+         this.f = [
+          
+           {data: this.a1, label: 'Contributions'},
+          
+         ];
+         
+        console.log("log y",this.b)
+         console.log("log x",this.f);
+             
+            }
+             
+          
+      });
     
 });
 
@@ -146,4 +207,6 @@ this._githubService.getGraph().subscribe(graph => {
       public chartHovered(e:any):void {
       console.log(e);
       }
+
+      
 }
