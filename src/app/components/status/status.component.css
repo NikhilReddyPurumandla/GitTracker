@@ -103,4 +103,31 @@ h1, h3{
     color: blue;
     cursor: pointer;
 }
- 
+.tab {
+    display: block;
+  
+    overflow: hidden;
+    white-space: nowrap;
+    
+}
+
+.content {
+    width:1500px;
+    position: relative;
+    display: inline-block;
+}
+
+table{
+
+overflow:scroll;
+display:block;
+}
+td[value="0"] {
+    color:#98FB98	;
+}
+.trs{
+    background-color:#409ba5;
+    height:100%;
+    width:100%;
+    text-align:center;
+}
